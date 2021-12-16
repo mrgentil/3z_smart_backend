@@ -5,13 +5,15 @@ namespace App\Models;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 
+use Laravel\Sanctum\HasApiTokens;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Models\Permission;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-    use HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -20,8 +22,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'firstName',
+        'lastName',
+        'adress',
+        'phone',
+        'genre',
+        'user_id',
         'email',
         'password',
+        'permission_id',
     ];
 
     /**
@@ -45,8 +54,8 @@ class User extends Authenticatable
 
 
 
-    public function silver()
+    public function permissions()
     {
-        return $this->hasOne(Silver::class);
+        return $this->belongsTo('Spatie\Permission\Models\Permission');
     }
 }

@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Controllers\SilverController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SilverController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +22,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/silvers', [SilverController::class, 'index']);
-Route::post('/silver-store', [SilverController::class, 'store']);
-Route::get('/silvers/{id}', [SilverController::class, 'show']);
-Route::put('/silvers/{id}', [SilverController::class, 'update']);
-Route::delete('/silvers/{id}', [SilverController::class, 'destroy']);
+
+
+
+
+
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{id}', [UserController::class, 'show']);
+Route::put('/users/{id}', [UserController::class, 'update']);
+Route::delete('/users/{id}', [UserController::class, 'destroy']);
+Route::post('/user-store', [UserController::class, 'store']);
+
+Auth::routes(['register' => false]);
