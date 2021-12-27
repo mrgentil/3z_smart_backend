@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stock;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -15,6 +16,9 @@ class StockController extends Controller
     public function index()
     {
         //
+        $stocks = Product::whereRaw('stock <= notif_min')->get();
+
+        return view('products.stock', compact('stocks'));
     }
 
     /**

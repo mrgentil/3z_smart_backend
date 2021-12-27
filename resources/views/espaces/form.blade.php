@@ -24,15 +24,7 @@ enctype="multipart/form-data" method="POST">
             @enderror
         </div>
 
-        <div class="col-xl-3 col-lg-6 col-12 form-group">
-            <label>Numero Table*</label>
-            <input type="text" name="number" value="{{ (old('number')) ? old('number') : ((isset($table) ? $table->number : '')) }}"  class="form-control @error('number') is-invalid @enderror" id="number" placeholder="Numero table" >
-            @error('number')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-        </div>
+        
         <div class="col-md-3 d-none d-xl-block form-group">
 
         </div>

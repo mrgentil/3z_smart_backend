@@ -42,7 +42,6 @@
                     <thead>
                         <tr>
                         <th>Nom</th>
-                        <th>Numero table</th>
                         <th>Actions</th>
                         <th></th>
                         </tr>
@@ -51,7 +50,6 @@
                         @forelse($tables as $item)
                         <tr>
                             <td>{{$item->name}}</td>
-                            <td>{{$item->number}}</td>
                             <td>
                                 <div class="d-flex">
 

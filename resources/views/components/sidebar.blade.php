@@ -23,28 +23,34 @@
                 <li class="nav-item">
                     <a href="{{ route('products.index') }}" class="nav-link"><i
                             class="fas fa-angle-right"></i>Config.
-                            Produit &
-                            Stock</a>
+                            Produit</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('espaces-tables.index') }}" class="nav-link"><i
                             class="fas fa-angle-right"></i>Config.
-                            Espaces &
+                            Espaces
+                        </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('tables.index') }}" class="nav-link"><i
+                            class="fas fa-angle-right"></i>Config.
+
                             Tables
                         </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{ route('menus.index') }}" class="nav-link"><i
                             class="fas fa-angle-right"></i>Config.
                             Carte/Menu
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="index5.html" class="nav-link"><i
+                {{-- <li class="nav-item">
+                    <a href="{{ route('notifications.index') }}" class="nav-link"><i
                             class="fas fa-angle-right"></i>Config.
                             Notification
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
         @endif
@@ -54,10 +60,19 @@
                 BORD</span></a>
             <ul class="nav sub-group-menu">
                 <li class="nav-item">
+                    <a href="{{ route('commandes.create') }}" class="nav-link"><i class="fas fa-angle-right"></i>Ajout Commande</a>
+                </li>
+                {{-- <li class="nav-item">
                     <a href="{{ route('commandes.index') }}" class="nav-link"><i class="fas fa-angle-right"></i>Commandes</a>
+                </li> --}}
+                <li class="nav-item">
+                    <a href="{{ route('validation') }}" class="nav-link"><i class="fas fa-angle-right"></i>Validation Commande</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link"><i
+                    <a href="{{ route('facture.index') }}" class="nav-link"><i class="fas fa-angle-right"></i>Factures</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('stock') }}" class="nav-link"><i
                             class="fas fa-angle-right"></i>Stock</a>
                 </li>
             </ul>
@@ -68,12 +83,12 @@
             <a href="{{ url('/') }}" class="nav-link"><i class="fas fa-chart-bar"></i><span>NOS ANALYSES</span></a>
         </li>
         @endif
-        @if(in_array('Notification', $module_array))
+{{--         @if(in_array('Notification', $module_array))
         <li class="nav-item">
-            <a href="messaging.html" class="nav-link"><i
+            <a href="" class="nav-link"><i
                     class="far fa-bell"></i><span>NOTIFICATION</span></a>
         </li>
         @endif
-
+ --}}
     </ul>
 </div>

@@ -16,7 +16,7 @@ enctype="multipart/form-data" method="POST">
     <div class="row">
         <div class="col-xl-3 col-lg-6 col-12 form-group">
             <label>Intitulé*</label>
-            <input type="text" name="name" value="{{ (old('name')) ? old('name') : ((isset($role) ? $role->name : '')) }}"  class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nom" >
+            <input type="text" name="name" value="{{ (old('name')) ? old('name') : ((isset($menu) ? $menu->name : '')) }}"  class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nom" >
             @error('name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -27,7 +27,7 @@ enctype="multipart/form-data" method="POST">
             <label>Produit *</label>
             <select id="product_id"  value="{{ (old('product_id')) ? old('product_id') : ((isset($menu) ? $menu->product_id : '')) }}" name="product_id[]" class="form-control select2  @error('product_id') is-invalid @enderror" multiple="multiple">
                 @foreach ($products as $item)
-                    <option {{-- {{ in_array($item->id, $menu_products) ? 'selected' : '' }} --}} value="{{$item->id}}">{{$item->name}}</option>
+                    <option {{ in_array($item->id, $menu_products) ? 'selected' : '' }}  value="{{$item->id}}">{{$item->name}}</option>
                 @endforeach
             </select>
         </div>

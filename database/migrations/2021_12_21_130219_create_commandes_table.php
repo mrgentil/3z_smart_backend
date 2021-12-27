@@ -15,16 +15,13 @@ class CreateCommandesTable extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('num_commande');
-            $table->string('num_client');
-            $table->string('num_facture');
+            $table->string('server_name');
             $table->float('amount');
-            $table->integer('quantity');
-            $table->float('stay_amout');
-            $table->integer('table_espace_id')->index()->unsigned();
+            $table->integer('table_id')->index()->unsigned();
             $table->integer('user_id')->index()->unsigned();
+            $table->integer('facture_id')->index()->unsigned();
 
-            $table->enum('state', ['En Cours', 'Payé', 'A Régulariser'])->default('En Cours');
+            // $table->enum('state', ['En Cours', 'Payé', 'A Régulariser'])->default('En Cours');
             $table->timestamps();
         });
     }

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+
 use App\Models\Commande;
 use App\Models\CarteMenu;
+use App\Models\AjoutTable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -12,7 +14,7 @@ class Table extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'number'
+
     ];
     public function menu()
     {
@@ -21,5 +23,9 @@ class Table extends Model
     public function commande()
     {
         return $this->hasMany(Commande::class);
+    }
+    public function ajoutTable()
+    {
+        return $this->hasMany(AjoutTable::class);
     }
 }

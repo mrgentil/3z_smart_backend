@@ -41,7 +41,8 @@ class CarteMenuController extends Controller
         //
         $products = Product::all();
         $espaces = Table::all();
-        return view('menus.create', compact('products', 'espaces'));
+        $menu_products = [];
+        return view('menus.create', compact('products', 'espaces', 'menu_products'));
     }
 
     /**
@@ -95,12 +96,12 @@ class CarteMenuController extends Controller
         //
         $products = Product::all();
         $menus = CarteMenu::find($carteMenu);
-        $tables = Table::all();
+        $espaces = Table::all();
         $menu_products = $menus->products->pluck('id')->toArray();
 
 
 
-        return view('menus.edit', compact('menus', 'tables', 'menu_products', 'products'));
+        return view('menus.edit', compact('menus', 'espaces', 'menu_products', 'products'));
     }
 
     /**
@@ -113,19 +114,18 @@ class CarteMenuController extends Controller
     public function update(Request $request, int $carteMenu)
     {
         //
-
-        $carteMenu = CarteMenu::find($carteMenu);
-
         $data = $request->validate([
             'name' => 'required|string',
-            'product_id.*' => 'required|string',
+            'product_id.*' => 'string|nullable',
             'table_espace_id' => 'required|exists:tables,id',
         ]);
+        $carteMenu = CarteMenu::find($carteMenu);
+
 
 
         $carteMenu->update($data);
 
-        $carteMenu->products()->sync($data['product_id']);
+
 
         Alert::success('Félicitations', 'Menu  Modifié avec Succès');
         try {

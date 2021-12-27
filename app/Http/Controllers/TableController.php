@@ -44,7 +44,7 @@ class TableController extends Controller
         //
         $data = $request->validate([
             'name' => 'required|string',
-            'number' => 'required|numeric',
+
         ]);
         try {
 
@@ -95,11 +95,11 @@ class TableController extends Controller
         $table = Table::find($table);
         $data = $request->validate([
             'name' => 'string|nullable',
-            'number' => 'numeric|nullable',
+
         ]);
         $table->update([
             'name' => $data['name'],
-            'number' => $data['number'],
+
         ]);
         Alert::success('Félicitations', 'Espace Modifié avec Succès');
         try {

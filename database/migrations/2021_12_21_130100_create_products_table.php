@@ -21,9 +21,9 @@ class CreateProductsTable extends Migration
             $table->integer('categorie_id')->index()->unsigned();
 
             $table->integer('notif_min');
-            $table->integer('portion');
+            $table->integer('portion')->nullable();
             $table->integer('quantity_total_portion');
-            $table->float('price_portion');
+            $table->float('price_portion')->nullable();
             $table->timestamps();
         });
     }

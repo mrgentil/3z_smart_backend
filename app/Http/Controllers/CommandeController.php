@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AjoutTable;
 use App\Models\Role;
 use App\Models\Table;
 use App\Models\Product;
 use App\Models\Commande;
+use App\Models\CommandeTempo;
 use Illuminate\Http\Request;
 
 class CommandeController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +34,7 @@ class CommandeController extends Controller
     public function create()
     {
         //
-        $tables = Table::all();
+        $tables = AjoutTable::all();
         $products = Product::all();
         return view('commandes.create', compact('tables', 'products'));
     }
@@ -40,7 +43,7 @@ class CommandeController extends Controller
     /**
      * @return array
      */
-    private function generateInvoiceCode(): array
+    /* private function generateInvoiceCode(): array
     {
         $prefixCommande = 'CMD/' . date('Y') . '/';
         $prefixFacture = 'FAC/' . date('Y') . '/';
@@ -61,7 +64,7 @@ class CommandeController extends Controller
             $prefixFacture . sprintf('%05d', $code),
             $prefixClient . sprintf('%05d', $code),
         ];
-    }
+    } */
 
     /**
      * Store a newly created resource in storage.
@@ -73,43 +76,37 @@ class CommandeController extends Controller
     {
 
 
-        [$codeCommande, $codeFacture, $codeClient] = $this->generateInvoiceCode();
+        /* [$codeCommande, $codeFacture, $codeClient] = $this->generateInvoiceCode(); */
 
         //dd($codeCommande, $codeFacture, $codeClient);
 
         $data = $request->validate([
-            'quantity' => 'required|numeric',
-            'product_id' => 'required|exists:products,id',
-            'table_espace_id' => 'required|exists:tables,id',
+            'quantity' => 'required',
+            'product_id' => 'required',
+            'table_id' => 'required',
         ]);
 
         try {
+            $commandData = [];
+            $user_id = auth()->user()->id;
 
+
+
+            for ($i = 1; $i < count($data['product_id']); $i++) {
+                $commandData[] = [
+                    "product_id" => $data['product_id'][$i],
+                    "quantity" => $data['quantity'][$i],
+                    "table_id" => $data['table_id'],
+                    "user_id" => $user_id,
+                    "server_id" => $user_id,
+                    "state" => "A Régulariser"
+                ];
+            }
+
+            CommandeTempo::insert($commandData);
+
+            return redirect()->route('validation');
             // $carteMenu->products()->sync($data['product_id']);
-
-
-            $users = auth()->user()->id;
-
-            $data['user_id'] = $users;
-            $data['num_commande'] = $codeCommande;
-            $data['num_client'] = $codeClient;
-            $data['num_facture'] = $codeFacture;
-
-            //  return $this->belongs_to('User')->select(array('id', 'username'));
-            $product_price = Product::select('price_product')->get();
-
-
-            $amount = Product::select('price_product')->get() * $request->quantity;
-            dd($amount);
-
-            $data['amount'] = $amount;
-            Terrain::query()->where('id', $request->terrain_id)->update([
-                'state' => 'vendu'
-            ]);
-
-            $paiements = Paiement::create($data);
-
-            return redirect()->route('paiements.index');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -144,7 +141,7 @@ class CommandeController extends Controller
      * @param  \App\Models\Commande  $commande
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Commande $commande)
+    public function update(Request $request, int $commande)
     {
         //
     }
@@ -155,8 +152,48 @@ class CommandeController extends Controller
      * @param  \App\Models\Commande  $commande
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Commande $commande)
+    public function destroy(int $commande)
     {
         //
+    }
+
+
+    public function validations()
+    {
+        $tables = AjoutTable::all();
+        return view('commandes.validations', compact('tables'));
+    }
+
+    public function validationsShow($id)
+    {
+        $commande = [];
+        $commandes = CommandeTempo::where('table_id', $id)->get();
+        foreach ($commandes as $key) {
+            $produit = $key->product;
+
+            $commande[] = [
+                "id" => $key->id,
+                "product" => $produit,
+                "quantity" => $key->quantity,
+
+                "user" => $key->user,
+                "server_id" => $key->user,
+                "state" => "A Régulariser",
+                "price_product" => $produit->price_product,
+                "price_total" => $produit->price_product * $key->quantity,
+            ];
+        }
+
+        $tables = AjoutTable::all();
+        $table = AjoutTable::find($id);
+        return view('commandes.allValidation', compact('commandes', 'tables', 'table', 'commande'));
+    }
+
+    public function ChangeState($id)
+    {
+        $commandes = CommandeTempo::find($id);
+        $commandes->state = "A Régulariser";
+        $commandes->save();
+        return redirect()->route('validation.show', $commandes->table_id);
     }
 }

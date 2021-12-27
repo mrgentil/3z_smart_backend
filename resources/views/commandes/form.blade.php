@@ -26,7 +26,7 @@ enctype="multipart/form-data" method="POST">
 
 
         <div class="col-xl-3 col-lg-6 col-12 form-group">
-            <label>Espace *</label>
+            <label>Table *</label>
             <select id="table_espace_id" value="{{ (old('table_espace_id')) ? old('table_espace_id') : ((isset($commande) ? $commande->table_espace_id : '')) }}" name="table_espace_id" class="form-control select2 @error('table_espace_id') is-invalid @enderror">
                 @foreach ($tables as $item)
                     <option value="{{$item->id}}">{{$item->name}}</option>

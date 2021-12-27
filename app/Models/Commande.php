@@ -16,18 +16,15 @@ class Commande extends Model
     use HasFactory;
 
     protected $fillable = [
-
-        /*'state',*/
+        /*'ste',*/
+        'server_name',
+        'author',
         'amount',
-        'product_id',
-        'stay_amount',
-        'name',
-        'num_client',
-        'num_commande',
-        'num_facture',
+        'table_id',
         'user_id',
-        'table_espace_id',
-        'state'
+        'facture_id',
+
+
     ];
     protected $guarded = [];
 
@@ -54,5 +51,9 @@ class Commande extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function facture()
+    {
+        return $this->belongsTo(Facture::class);
     }
 }

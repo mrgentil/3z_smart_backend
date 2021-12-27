@@ -89,22 +89,10 @@
     </div>
     @include('sweetalert::alert')
     <!-- jquery-->
-    @stack('script')
 
-
-
-    </script>
     <script src="../../../../code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-    <script type="text/javascript">
-        $('.addRow').on('click', function(){
-            addRow();
-        });
-        function addRow()
-        {
-            alert('test');
-        }
     <!-- Plugins js -->
     <script src="{{ asset('js/plugins.js') }}"></script>
     <!-- Popper js -->
@@ -133,6 +121,6 @@
     <script src="{{ asset('js/Chart.min.js') }}"></script>
     <!-- Custom Js -->
     <script src="{{ asset('js/main.js') }}"></script>
-
+    @stack('script')
 </body>
 </html>

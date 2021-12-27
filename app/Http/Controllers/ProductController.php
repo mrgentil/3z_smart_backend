@@ -55,8 +55,8 @@ class ProductController extends Controller
             'stock' => 'required|string',
             'categorie_id' => 'required|exists:categories,id',
             'notif_min' => 'numeric|nullable',
-            'portion' => 'numeric|nullable',
-            'price_portion' => 'numeric|nullable',
+            'portion' => '',
+            'price_portion' => '',
 
         ]);
 

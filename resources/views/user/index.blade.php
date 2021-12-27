@@ -54,7 +54,7 @@
                     <tbody>
                         @forelse($users as $item)
                         <tr>
-                            <td class="text-center"><img src="{{asset($item->xsLogo)}}" alt="{{ $item->name }}"></td>
+                            <td class="text-center"><img src="{{asset('images/avatar/sm/' . $item->avatar)}}" alt="{{ $item->name }}"></td>
                                                 <td>{{$item->name}}</td>
                                                 <td>{{$item->firstName}}</td>
                                                 <td>{{$item->lastNAme}}</td>
@@ -85,6 +85,9 @@
 
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                    {!! $users->links() !!}
+                </div>
             </div>
         </div>
     </div>

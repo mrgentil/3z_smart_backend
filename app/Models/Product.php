@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Models\Table;
+use App\Models\Facture;
 use App\Models\Commande;
 use App\Models\CarteMenu;
 use App\Models\Categorie;
+use App\Models\CommandeTempo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -36,5 +38,14 @@ class Product extends Model
     public function commandes()
     {
         return $this->belongsToMany(Commande::class);
+    }
+    public function commandeTempo()
+    {
+        return $this->hasOne(CommandeTempo::class);
+    }
+
+    public function factures()
+    {
+        return $this->belongsToMany(Facture::class);
     }
 }

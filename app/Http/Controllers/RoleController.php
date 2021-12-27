@@ -10,6 +10,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -34,8 +39,9 @@ class RoleController extends Controller
     {
         //
         $modules = Module::all();
+        $role_modules = [];
 
-        return view('roles.create', compact('modules'));
+        return view('roles.create', compact('modules', 'role_modules'));
     }
 
     /**

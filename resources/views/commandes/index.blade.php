@@ -24,7 +24,7 @@
             <li>
                 <a href="{{ url('/') }}">Acueil</a>
             </li>
-            <li><a class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark" href="{{ route('commandes.create') }}"> Ajouter une commande</a></li>
+            {{-- <li><a class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark" href="{{ route('commandes.create') }}"> Ajouter une commande</a></li> --}}
         </ul>
     </div>
     <!-- Breadcubs Area End Here -->
